@@ -2,16 +2,12 @@ from domain.book import Book
 from domain.customer import Customer
 from repository.book_repository import BookRepository
 from repository.customer_repository import CustomerRepository
+from ui.ui import UI
 
 
 
-c = Customer(1, "Lotsico", "1234")
+bookRepository = BookRepository()
+customerRepository = CustomerRepository()
+ui = UI(bookRepository, customerRepository)
 
-customer_repository = CustomerRepository()
-
-b = Book(1, "Harry Potter", "Magie", "J.K. Rowling")
-book_repository = BookRepository()
-book_repository.add_book(b)
-
-#This should print the book details, not the memory address
-print(book_repository)
+ui.run()
