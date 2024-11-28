@@ -47,6 +47,20 @@ class BookService:
         books = self.bookRepository.get_books()
         sorted_books = sorted(books, key=lambda book: book[3].lower())
         return sorted_books
+    
+    def test_book_subtraction(self):
+        book = Book(1, "Title", "This is a sample description.", "Author")
+        words_to_remove = ["sample", "description"]
+        new_book = book - words_to_remove
+        expected_description = "This is a."
+        self.assertEqual(new_book.get_description(), expected_description)
+        
+    def find_book_by_id(self, book_id):
+        books = self.bookRepository.get_books()
+        for book_data in books:
+            if book_data[0] == book_id:
+                return Book(*book_data)
+        raise ValueError("Book not found")
 
 
 class CustomerService:

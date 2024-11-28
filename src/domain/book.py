@@ -29,5 +29,13 @@ class Book:
     def get_book(self):
         return self.book
     
+    def __sub__(self, words_to_remove):
+        if isinstance(words_to_remove, list):
+            new_description = ' '.join(
+                word for word in self.get_description().split() if word not in words_to_remove
+            )
+            return Book(self.get_book_id(), self.get_title(), new_description, self.get_author())
+        return NotImplemented
+    
     def __str__(self):
         return f"{self.book[0]} - {self.book[1]} - {self.book[2]} - {self.book[3]}"
