@@ -47,6 +47,22 @@ class BookService:
         books = self.bookRepository.get_books()
         sorted_books = sorted(books, key=lambda book: book[3].lower())
         return sorted_books
+    
+    def find_equal_books(self, input_book):
+        books = self.bookRepository.get_books()
+        equal_books = []
+        for book_data in books:
+            book = Book(*book_data)
+            if book == input_book and book.get_book_id() != input_book.get_book_id():
+                equal_books.append(book)
+        return equal_books
+
+    def find_book_by_id(self, book_id):
+        books = self.bookRepository.get_books()
+        for book_data in books:
+            if book_data[0] == book_id:
+                return Book(*book_data)
+        raise ValueError("Book not found")
 
 
 class CustomerService:

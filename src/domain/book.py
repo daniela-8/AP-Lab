@@ -29,5 +29,13 @@ class Book:
     def get_book(self):
         return self.book
     
+    def __eq__(self, other):
+        if isinstance(other, Book):
+            return self.get_title() == other.get_title() and self.get_author() == other.get_author()
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+    
     def __str__(self):
         return f"{self.book[0]} - {self.book[1]} - {self.book[2]} - {self.book[3]}"

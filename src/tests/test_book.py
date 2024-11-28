@@ -104,6 +104,14 @@ class TestBookService(unittest.TestCase):
         sorted_books = self.service.sort_books_by_author()
         self.assertEqual(sorted_books[0][3], "Author A")
         self.assertEqual(sorted_books[1][3], "Author B")
+        
+    def test_book_equality(self):
+        book1 = Book(1, "Title", "Desc", "Author")
+        book2 = Book(2, "Title", "Other Desc", "Author")
+        book3 = Book(3, "Different Title", "Desc", "Author")
+        self.assertTrue(book1 == book2)
+        self.assertFalse(book1 == book3)
+        self.assertTrue(book1 != book3)
 
 if __name__ == "__main__":
     unittest.main()

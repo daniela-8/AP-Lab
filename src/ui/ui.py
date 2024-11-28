@@ -21,12 +21,14 @@ class UI:
         print("10. Sort books by author")
         print("11. Search customers by name")
         print("12. Sort customers by CNP")
+        print("13. Find all books equal to a given book")
         print("0. Exit")
 
     def run(self):
         self.bookService.add_book(1, "Lord of the Rings", "An epic fantasy novel", "J.R.R. Tolkien")
         self.bookService.add_book(2, "Harry Potter", "A wizard's journey", "J.K. Rowling")
         self.bookService.add_book(3, "Punguta cu doi bani", "A classic tale", "Ion Creangă")
+        self.bookService.add_book(4, "Lord of the Rings", "An epic fantasy novel", "J.R.R. Tolkien")
         self.customerService.add_customer(1, "Mihai", 1234)
         self.customerService.add_customer(2, "Ioana", 4567)
         self.customerService.add_customer(3, "John", 7896)
@@ -99,6 +101,16 @@ class UI:
                     for customer_data in sorted_customers:
                         customer = Customer(*customer_data)
                         print(customer)
+                elif command == 13:
+                    book_id = int(input("Enter the ID of the book to compare: "))
+                    input_book = self.bookService.find_book_by_id(book_id)
+                    equal_books = self.bookService.find_equal_books(input_book)
+                    if equal_books:
+                        print("Books equal to the given book:")
+                        for book in equal_books:
+                            print(book)
+                    else:
+                        print("No books equal to the given book.")
                 elif command == 0:
                     print("Exited!")
                     break
