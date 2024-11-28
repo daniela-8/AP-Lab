@@ -11,3 +11,9 @@ class CustomerRepository:
 
     def get_customers(self):
         return self.customers
+
+    def update_customer(self, new_customer):
+        for customer in self.customers:
+            if customer.get_id() == new_customer.get_id():
+                customer.set_name(new_customer.get_name())
+                customer.set_CNP(new_customer.get_CNP())
