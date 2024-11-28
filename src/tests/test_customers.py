@@ -100,6 +100,12 @@ class TestCustomerService(unittest.TestCase):
         sorted_customers = self.service.sort_customers_by_CNP()
         self.assertEqual(sorted_customers[0][2], 123456789)
         self.assertEqual(sorted_customers[1][2], 987654321)
+        
+    def test_customer_length(self):
+        customer = Customer(1, "Alice", 1234)
+        self.assertEqual(len(customer), 5)
+        customer.set_name("Bob")
+        self.assertEqual(len(customer), 3)
 
 if __name__ == "__main__":
     unittest.main()

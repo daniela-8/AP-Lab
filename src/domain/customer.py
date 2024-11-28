@@ -23,5 +23,8 @@ class Customer:
     def get_customer(self):
         return self.customer
     
+    def __len__(self):
+        return len(self.get_name())
+    
     def __str__(self):
         return f"Id: {self.customer[0]}, Name: {self.customer[1]}, CNP: {self.customer[2]}"

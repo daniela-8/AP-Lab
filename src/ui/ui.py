@@ -21,6 +21,7 @@ class UI:
         print("10. Sort books by author")
         print("11. Search customers by name")
         print("12. Sort customers by CNP")
+        print("13. Display the length of a customer's name")
         print("0. Exit")
 
     def run(self):
@@ -99,6 +100,11 @@ class UI:
                     for customer_data in sorted_customers:
                         customer = Customer(*customer_data)
                         print(customer)
+                elif command == 13:
+                    customer_id = int(input("Enter customer ID: "))
+                    customer = self.customerService.find_customer_by_id(customer_id)
+                    name_length = len(customer)
+                    print(f"The length of the customer's name is: {name_length}")
                 elif command == 0:
                     print("Exited!")
                     break

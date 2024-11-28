@@ -96,3 +96,10 @@ class CustomerService:
         customers = list(self.customerRepository.get_customers())
         sorted_customers = sorted(customers, key=lambda customer: customer[2])
         return sorted_customers
+
+    def find_customer_by_id(self, customer_id):
+        customers = self.customerRepository.get_customers()
+        for customer_data in customers:
+            if customer_data[0] == customer_id:
+                return Customer(*customer_data)
+        raise ValueError("Customer not found")
