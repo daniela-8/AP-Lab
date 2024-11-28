@@ -21,6 +21,7 @@ class UI:
         print("10. Sort books by author")
         print("11. Search customers by name")
         print("12. Sort customers by CNP")
+        print("13. Combine descriptions of two books")
         print("0. Exit")
 
     def run(self):
@@ -99,6 +100,15 @@ class UI:
                     for customer_data in sorted_customers:
                         customer = Customer(*customer_data)
                         print(customer)
+                elif command == 13:
+                    book_id1 = int(input("Enter first book ID: "))
+                    book_id2 = int(input("Enter second book ID: "))
+                    book1 = self.bookService.find_book_by_id(book_id1)
+                    book2 = self.bookService.find_book_by_id(book_id2)
+                    combined_book = book1 + book2
+                    print("Combined Book Description:")
+                    print(combined_book.get_description())
+
                 elif command == 0:
                     print("Exited!")
                     break

@@ -29,5 +29,17 @@ class Book:
     def get_book(self):
         return self.book
     
+    def __add__(self, other):
+        if isinstance(other, Book):
+            new_description = self.get_description() + ' ' + other.get_description()
+            return Book(self.get_book_id(), self.get_title(), new_description, self.get_author())
+        return NotImplemented
+
+    def __iadd__(self, other):
+        if isinstance(other, Book):
+            self.set_description(self.get_description() + ' ' + other.get_description())
+            return self
+        return NotImplemented
+    
     def __str__(self):
         return f"{self.book[0]} - {self.book[1]} - {self.book[2]} - {self.book[3]}"

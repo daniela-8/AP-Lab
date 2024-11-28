@@ -104,6 +104,20 @@ class TestBookService(unittest.TestCase):
         sorted_books = self.service.sort_books_by_author()
         self.assertEqual(sorted_books[0][3], "Author A")
         self.assertEqual(sorted_books[1][3], "Author B")
+        
+    def test_book_addition(self):
+        book1 = Book(1, "Title", "Description one.", "Author")
+        book2 = Book(2, "Title", "Description two.", "Author")
+        combined_book = book1 + book2
+        expected_description = "Description one. Description two."
+        self.assertEqual(combined_book.get_description(), expected_description)
+
+    def test_book_inplace_addition(self):
+        book1 = Book(1, "Title", "Description one.", "Author")
+        book2 = Book(2, "Title", "Description two.", "Author")
+        book1 += book2
+        expected_description = "Description one. Description two."
+        self.assertEqual(book1.get_description(), expected_description)
 
 if __name__ == "__main__":
     unittest.main()
