@@ -100,6 +100,15 @@ class TestCustomerService(unittest.TestCase):
         sorted_customers = self.service.sort_customers_by_CNP()
         self.assertEqual(sorted_customers[0][2], 123456789)
         self.assertEqual(sorted_customers[1][2], 987654321)
+        
+    def test_customer_comparison(self):
+        customer1 = Customer(1, "Alice", 1234)
+        customer2 = Customer(2, "Bob", 5678)
+        self.assertTrue(customer1 < customer2)
+        self.assertFalse(customer1 > customer2)
+        customer3 = Customer(3, "Charlie", 1234)
+        self.assertFalse(customer1 < customer3)
+        self.assertFalse(customer1 > customer3)
 
 if __name__ == "__main__":
     unittest.main()

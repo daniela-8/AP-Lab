@@ -21,6 +21,8 @@ class UI:
         print("10. Sort books by author")
         print("11. Search customers by name")
         print("12. Sort customers by CNP")
+        print("13. Compare two customers based on CNP")
+
         print("0. Exit")
 
     def run(self):
@@ -99,6 +101,17 @@ class UI:
                     for customer_data in sorted_customers:
                         customer = Customer(*customer_data)
                         print(customer)
+                elif command == 13:
+                    customer_id1 = int(input("Enter first customer ID: "))
+                    customer_id2 = int(input("Enter second customer ID: "))
+                    customer1 = self.customerService.find_customer_by_id(customer_id1)
+                    customer2 = self.customerService.find_customer_by_id(customer_id2)
+                    if customer1 < customer2:
+                        print(f"{customer1.get_name()} has a smaller CNP than {customer2.get_name()}.")
+                    elif customer1 > customer2:
+                        print(f"{customer1.get_name()} has a larger CNP than {customer2.get_name()}.")
+                    else:
+                        print(f"{customer1.get_name()} and {customer2.get_name()} have the same CNP.")
                 elif command == 0:
                     print("Exited!")
                     break
