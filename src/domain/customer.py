@@ -23,5 +23,15 @@ class Customer:
     def get_customer(self):
         return self.customer
     
+    def __le__(self, other):
+        if isinstance(other, Customer):
+            return self.get_CNP() <= other.get_CNP()
+        return NotImplemented
+
+    def __ge__(self, other):
+        if isinstance(other, Customer):
+            return self.get_CNP() >= other.get_CNP()
+        return NotImplemented
+    
     def __str__(self):
         return f"Id: {self.customer[0]}, Name: {self.customer[1]}, CNP: {self.customer[2]}"
