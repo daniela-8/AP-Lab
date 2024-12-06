@@ -27,20 +27,12 @@ class BookService:
     def get_books(self):
         return self.bookRepository.get_books()
 
-    def print_books(self):
-        books = self.bookRepository.get_books()
-        books_formatted = []
-        for book_data in books:
-            book = Book(*book_data)
-            books_formatted.append(str(book))
-        return books_formatted
-
-    def search_books_by_title(self, search_term):
+    def search_books_by_title(self, title):
         books = self.bookRepository.get_books()
         matched_books = []
-        for book_data in books:
-            if search_term.lower() in book_data[1].lower():
-                matched_books.append(book_data)
+        for book in books:
+            if title.lower() in book[1].lower():
+                matched_books.append(book)
         return matched_books
 
     def sort_books_by_author(self):
@@ -67,14 +59,6 @@ class CustomerService:
     def get_customers(self):
         return self.customerRepository.get_customers()
 
-    def print_customers(self):
-        customers = self.customerRepository.get_customers()
-        customers_formatted = []
-        for customer_data in customers:
-            customer = Customer(*customer_data)
-            customers_formatted.append(str(customer))
-        return customers_formatted
-
     def update_customer(self, id, name, CNP):
         customers = self.customerRepository.get_customers()
         found = False
@@ -87,13 +71,13 @@ class CustomerService:
         new_customer = Customer(id, name, CNP)
         self.customerRepository.update_customer(new_customer)
 
-    def search_customers_by_name(self, search_term):
+    def search_customers_by_name(self, name):
         customers = self.customerRepository.get_customers()
-        matched_customers = [customer for customer in customers if search_term.lower() in customer[1].lower()]
+        matched_customers = [customer for customer in customers if name.lower() in customer[1].lower()]
         return matched_customers
 
     def sort_customers_by_CNP(self):
-        customers = list(self.customerRepository.get_customers())
+        customers = self.customerRepository.get_customers()
         sorted_customers = sorted(customers, key=lambda customer: customer[2])
         return sorted_customers
 

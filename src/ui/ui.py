@@ -57,11 +57,11 @@ class UI:
                     self.customerService.delete_customer(id)
                     print("Customer deleted.")
                 elif command == 5:
-                    books = self.bookService.print_books()
+                    books = self.bookService.get_books()
                     for book in books:
                         print(book)
                 elif command == 6:
-                    customers = self.customerService.print_customers()
+                    customers = self.customerService.get_customers()
                     for customer in customers:
                         print(customer)
                 elif command == 7:
