@@ -80,13 +80,11 @@ class UI:
                 elif command == 9:
                     search_term = input("Enter title to search for: ")
                     matched_books = self.bookService.search_books_by_title(search_term)
-                    for book_data in matched_books:
-                        book = Book(*book_data)
+                    for book in matched_books:
                         print(book)
                 elif command == 10:
                     sorted_books = self.bookService.sort_books_by_author()
-                    for book_data in sorted_books:
-                        book = Book(*book_data)
+                    for book in sorted_books:
                         print(book)
                 elif command == 11:
                     search_term = input("Enter name to search for: ")
