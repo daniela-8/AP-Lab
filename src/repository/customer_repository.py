@@ -1,32 +1,26 @@
 class CustomerRepository:
     def __init__(self):
-        self.customers = set()  
-    
+        self.customers = []
+
     def add_customer(self, customer):
-        self.customers.add(customer.get_customer())
-    
+        self.customers.append(customer)
+
     def remove_customer(self, customer_id):
-        to_remove = None
         for customer in self.customers:
-            if customer[0] == customer_id:
-                to_remove = customer
-                break
-        if to_remove:
-            self.customers.remove(to_remove)
-        else:
-            raise ValueError("Customer not found")
-    
+            if customer.customer_id == customer_id:
+                self.customers.remove(customer)
+                return
+        raise ValueError("Customer not found")
+
     def get_customers(self):
         return self.customers
-    
+
     def update_customer(self, new_customer):
-        old_customer = None
-        for customer in self.customers:
-            if customer[0] == new_customer.get_id():
-                old_customer = customer
-                break
-        if old_customer:
-            self.customers.remove(old_customer)
-            self.customers.add(new_customer.get_customer())
-        else:
-            raise ValueError("Customer not found")
+        for idx, customer in enumerate(self.customers):
+            if customer.customer_id == new_customer.customer_id:
+                self.customers[idx] = new_customer
+                return
+        raise ValueError("Customer not found")
+
+    def __str__(self):
+        return '\n'.join(str(customer) for customer in self.customers)

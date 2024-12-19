@@ -8,14 +8,14 @@ class BookService:
     def add_book(self, book_id, title, description, author):
         books = self.bookRepository.get_books()
         for book in books:
-            if book[0] == book_id:
+            if book.book_id == book_id:
                 raise ValueError("Book id must be unique")
         book = Book(book_id, title, description, author)
         self.bookRepository.add_book(book)
 
     def update_book(self, id, title, description, author):
         books = self.bookRepository.get_books()
-        ids = [book[0] for book in books]
+        ids = [book.book_id for book in books]
         if id not in ids:
             raise ValueError("Book not found")
         new_book = Book(id, title, description, author)
@@ -27,42 +27,18 @@ class BookService:
     def get_books(self):
         return self.bookRepository.get_books()
 
-    def print_books(self):
-        books = self.bookRepository.get_books()
-        books_formatted = []
-        for book_data in books:
-            book = Book(*book_data)
-            books_formatted.append(str(book))
-        return books_formatted
-
-    def search_books_by_title(self, search_term):
+    def search_books_by_title(self, title):
         books = self.bookRepository.get_books()
         matched_books = []
-        for book_data in books:
-            if search_term.lower() in book_data[1].lower():
-                matched_books.append(book_data)
+        for book in books:
+            if title.lower() in book.title.lower():
+                matched_books.append(book)
         return matched_books
 
     def sort_books_by_author(self):
         books = self.bookRepository.get_books()
-        sorted_books = sorted(books, key=lambda book: book[3].lower())
+        sorted_books = sorted(books, key=lambda book: book.author.lower())
         return sorted_books
-    
-    def find_equal_books(self, input_book):
-        books = self.bookRepository.get_books()
-        equal_books = []
-        for book_data in books:
-            book = Book(*book_data)
-            if book == input_book and book.get_book_id() != input_book.get_book_id():
-                equal_books.append(book)
-        return equal_books
-
-    def find_book_by_id(self, book_id):
-        books = self.bookRepository.get_books()
-        for book_data in books:
-            if book_data[0] == book_id:
-                return Book(*book_data)
-        raise ValueError("Book not found")
 
 
 class CustomerService:
@@ -72,7 +48,7 @@ class CustomerService:
     def add_customer(self, customer_id, name, CNP):
         customers = self.customerRepository.get_customers()
         for customer in customers:
-            if customer[0] == customer_id:
+            if customer.customer_id == customer_id:
                 raise ValueError("Customer id must be unique")
         customer = Customer(customer_id, name, CNP)
         self.customerRepository.add_customer(customer)
@@ -83,19 +59,11 @@ class CustomerService:
     def get_customers(self):
         return self.customerRepository.get_customers()
 
-    def print_customers(self):
-        customers = self.customerRepository.get_customers()
-        customers_formatted = []
-        for customer_data in customers:
-            customer = Customer(*customer_data)
-            customers_formatted.append(str(customer))
-        return customers_formatted
-
     def update_customer(self, id, name, CNP):
         customers = self.customerRepository.get_customers()
         found = False
         for customer in customers:
-            if customer[0] == id:
+            if customer.customer_id == id:
                 found = True
                 break
         if not found:
@@ -103,12 +71,12 @@ class CustomerService:
         new_customer = Customer(id, name, CNP)
         self.customerRepository.update_customer(new_customer)
 
-    def search_customers_by_name(self, search_term):
+    def search_customers_by_name(self, name):
         customers = self.customerRepository.get_customers()
-        matched_customers = [customer for customer in customers if search_term.lower() in customer[1].lower()]
+        matched_customers = [customer for customer in customers if name.lower() in customer.name.lower()]
         return matched_customers
 
     def sort_customers_by_CNP(self):
-        customers = list(self.customerRepository.get_customers())
-        sorted_customers = sorted(customers, key=lambda customer: customer[2])
+        customers = self.customerRepository.get_customers()
+        sorted_customers = sorted(customers, key=lambda customer: customer.CNP)
         return sorted_customers
