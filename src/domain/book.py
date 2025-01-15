@@ -7,7 +7,7 @@ class Book:
     
     def get_title(self):
         return self.book[1]
-    
+
     def get_description(self):
         return self.book[2]
     
